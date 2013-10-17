@@ -22,9 +22,14 @@ use Modern::Perl;
 
 use Data::Dumper;
 use autodie;
+use JSON;
 
 my $tr_file = q(testruns.dat);
 
-my ($tr, $ts) = do $tr_file;
-print Dumper $tr;
-print Dumper $ts;
+my $tr = do $tr_file;
+
+my $js = to_json($tr);
+
+open(my $fh, ">", 'testruns.json');
+print $fh $js;
+close($fh);
